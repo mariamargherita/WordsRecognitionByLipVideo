@@ -12,11 +12,11 @@ Please note that the dataset was leveraged for a [Kaggle](https://www.kaggle.com
 
 ## Introduction
 
-An event is a 4-tuple *(x,y,p,t)* where
+An event is a 4-tuple $(x,y,p,t)$ where
 
-- *(x,y)* denotes the pixel's position associated with the event.
-- *p* is a boolean indicating whether the change in luminosity is increasing or decreasing.
-- *t* represents the timestamp (in *\mu s*) from the start of the recording.
+- $(x,y)$ denotes the pixel's position associated with the event.
+- $p$ is a boolean indicating whether the change in luminosity is increasing or decreasing.
+- $t$ represents the timestamp (in $\mu s$) from the start of the recording.
 
 Event Data are DataFrames, with each row representing an event, sorted in ascending order *w.r.t.* the timestamp.
 

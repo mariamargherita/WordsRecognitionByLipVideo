@@ -11,7 +11,7 @@ def create_polarity_matrix(row, matrix):
     :param matrix:
     :return:
     """
-    matrix[row[0],row[1]] += 1
+    matrix[row[0], row[1]] += 1
 
 
 def plot_sample_snapshot(test):
