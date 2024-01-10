@@ -72,7 +72,7 @@ Every folder within `train10/train10/` holds 32 csv files, named from `0.csv` to
 3. **Install virtual environment**: This project requires a certain Conda environment. You can install it by typing the following in your terminal:
 
     ```bash
-    # put here command to install yml conda environmnet
+    conda env create -f lip_video_env.yml
     ```
    
 You should now be able to run the Notebooks.
