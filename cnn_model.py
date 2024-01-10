@@ -20,7 +20,7 @@ class convLSTM():
         self.dropout = dropout
         self.model = self.create_convlstm_model()
 
-    def train(self, epochs=10, batch_size=32, patience=10):
+    def train(self, epochs=10, batch_size=32, patience=5):
         early_stopping_callback = EarlyStopping(monitor='val_loss',
                                                 patience=patience,
                                                 mode='min',

@@ -76,3 +76,43 @@ def plot_history(history):
     plt.title('Accuracy')
     plt.legend()
     plt.savefig(f"plots/acc_vs_valacc.png")
+
+
+def accuracy_fn(boolean_result, y_pred):
+    """
+    This function computes model accuracy.
+    :param y_true: actual target
+    :param y_pred: predicted target
+    :return: model accuracy
+    """
+
+    correct = np.array(boolean_result).sum()
+    accuracy = round((correct / len(y_pred)), 4)
+    return accuracy
+
+
+def prediction(test_set, test_results, label_dict):
+    """
+
+    :param test_results:
+    :param label_dict:
+    :return:
+    """
+    y_pred = [' ' for r in range(len(test_set))]
+    for i, path in enumerate(test_set):
+        test_sample_id = int(path.split('/')[3].split('.')[0]) # get the test sample id from the file path name
+        # use the smaple id to fill in the corresponding index in the test_results_decoded list
+        y_pred[test_sample_id] = label_dict[test_results[i].argmax()]
+
+    y_true = list(pd.read_csv('solution.csv', names=['id', 'label']).label[1:])
+
+    boolean_result = []
+    for t, p in zip(y_true, y_pred):
+        if t == p:
+            boolean_result.append(True)
+        else:
+            boolean_result.append(False)
+
+    test_accuracy = accuracy_fn(boolean_result, y_pred)
+
+    return test_accuracy

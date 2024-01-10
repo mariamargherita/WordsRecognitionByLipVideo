@@ -84,7 +84,8 @@ You should now be able to run the Notebooks.
 ### Data Preprocessing
 
 The initial phase of the project involves preprocessing the raw event data. In the preprocessing phase, we first implement noise reduction methods to refine the event data. 
-> **Enhancements**: Could be PCA.
+> **Enhancements**
+> - Not yet started, will try noise reduction.
 
 ### Model Selection and Training
 
@@ -93,9 +94,10 @@ Bagging Random Forest versus the one of a CNN-LSTM.
 
 > **Enhancements on CNN-LSTM**
 > - The model was trained with 90% of training set and 10% of validation data to increase training data and limit overfitting
-> - 
+> - Lowering early stopping patience on validation loss from 10 to 5 to limit overfitting
 
-> **Enhancements on Bagging Random Forest**: .
+> **Enhancements on Bagging Random Forest**
+> - Not yet started
 
 <br>
 

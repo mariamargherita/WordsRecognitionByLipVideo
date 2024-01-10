@@ -5,6 +5,9 @@ import numpy as np
 import csv
 import pickle
 from tensorflow.keras import Sequential, layers
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 
 
 def data_load_nn(path_dir):
@@ -176,7 +179,7 @@ def process_test_set(test_set, time_bins, resize):
 def test_data_feed_nn():
     """
     This function loads the test data we extracted with process_test_set.
-    :return: train_data, labels, label_dict
+    :return: test_data
     """
     # Load data
     with open('test_data_nn.pickle', 'rb') as f:
