@@ -6,9 +6,12 @@ from tensorflow.keras.utils import plot_model
 
 
 class convLSTM():
-    def __init__(self, X_train, y_train, conv_filters=[4, 4], dropout=0.4):
+    def __init__(self, X_train, y_train, X_val, y_val, timestamp, conv_filters=[4, 4], dropout=0.4):
         self.X_train = X_train
         self.y_train = y_train
+        self.X_val = X_val
+        self.y_val = y_val
+        self.timestamp = timestamp
         self.IMAGE_HEIGHT = X_train[0][0].shape[0]
         self.IMAGE_WIDTH = X_train[0][0].shape[1]
         self.SEQUENCE_LENGTH = len(X_train[0])
@@ -23,7 +26,7 @@ class convLSTM():
                                                 mode='min',
                                                 restore_best_weights=True)
         checkpoint_callback = ModelCheckpoint(
-            filepath='checkpoints/cp-{epoch:02d}-{val_accuracy:.2f}.model',
+            filepath='checkpoints/cp-best-{timestamp}.model',
             verbose=1,
             save_best_only=True)
 
@@ -36,7 +39,8 @@ class convLSTM():
                                                          epochs=epochs,
                                                          batch_size=batch_size,
                                                          shuffle=True,
-                                                         validation_split=0.2,
+                                                         validation_data=(self.X_val, self.y_val),
+                                                         #validation_split=0.2,
                                                          callbacks=[early_stopping_callback, checkpoint_callback])
         return convlstm_model_training_history
 

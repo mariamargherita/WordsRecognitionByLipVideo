@@ -1,5 +1,5 @@
 
-from data_handling import data_load_rf, data_feed_rf
+from data_handling_nn import data_load_rf, data_feed_rf
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn import tree, ensemble

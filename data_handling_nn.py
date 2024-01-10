@@ -1,10 +1,10 @@
 
 import os
 import pandas as pd
-from utils import create_polarity_matrix
 import numpy as np
 import csv
 import pickle
+from tensorflow.keras import Sequential, layers
 
 
 def data_load_nn(path_dir):
@@ -75,7 +75,7 @@ def binSample(sample, time_bins, resize_scale=0.5, size=[640, 480]):
     return layers
 
 
-def processTrainingSet(train_set, time_bins=10, resize=0.5):
+def process_training_set(train_set, time_bins=10, resize=0.5):
     """
 
     :param train_set:
@@ -123,7 +123,7 @@ def processTrainingSet(train_set, time_bins=10, resize=0.5):
 
 def data_feed_nn():
     """
-    This function loads the data we extracted with data_load_nn.
+    This function loads the data we extracted with process_training_set.
     :return: train_data, labels, label_dict
     """
     # Load data
@@ -139,67 +139,64 @@ def data_feed_nn():
     return train_data_nn, labels_nn, label_dict_nn
 
 
-def data_load_rf(path_dir):
+def process_test_set(test_set, time_bins, resize):
     """
-    This function loads data and labels from directory.
-    It creates a polarity matrix (i.e. flags where there is intensity changes in every file by adding a +1 at every pixel
-    coordinate where this happens), normalizes the matrix, flattens it and returns flattened matrix and respective
-    labels (i.e. words pronounced).
-    :param path_dir: directory path
-    :return: flattened matrix and respective labels
+
+    :param test_set:
+    :param time_bins:
+    :param resize:
+    :return:
     """
-    labels = []
-    matrices = []
+    test_set_imgs = []
+    for i, img in enumerate(test_set):
+        if i % 5 == 0:
+            print(f"{i}/{len(test_set)}\t {img}")
+        with open(img, newline='') as f:
+            reader = csv.reader(f)
+            row1 = next(reader)
+            if 'x' not in row1:
+                img = pd.read_csv(img, names=['x', 'y', 'polarity', 'time'])
+            else:
+                img = pd.read_csv(img)
+            bucketed_sample = binSample(img, time_bins, resize)
+            test_set_imgs.append(bucketed_sample)
 
-    print("---------- Start data load ----------")
-
-    j = 1
-    for dirname, _, filenames in os.walk(path_dir + 'train10/train10/'):
-        print(f"Processing directory {j} over 11: " + dirname)
-        total = len(filenames)
-        i = 1
-        for filename in filenames:
-            if filename != '.DS_Store':
-                print(f'Iteration {i} over {total}')
-                labels.append(dirname.rsplit('/', 1)[1])
-                pronounced_word = pd.read_csv(os.path.join(dirname, filename))
-                width = (pronounced_word.iloc[:, 0] + 1).max()
-                height = (pronounced_word.iloc[:, 1] + 1).max()
-                words_matrix = np.zeros((width, height), dtype=int)
-                pronounced_word_np = pronounced_word.to_numpy()
-                np.apply_along_axis(create_polarity_matrix, 1, pronounced_word_np, words_matrix)
-                normalized_words_matrix = words_matrix / np.amax(words_matrix)
-                matrices.append(normalized_words_matrix)
-                i = i + 1
-        j = j + 1
-
-    print("---------- Start flattening matrices ----------")
-
-    flattened_matrices = []
-    for matrix in matrices:
-        flattened_matrices.append(matrix.flatten()[:214])
+    test_set_imgs = np.array(test_set_imgs)
+    height, width = test_set_imgs[0].shape[1], test_set_imgs[0].shape[2]
+    test_set_imgs = test_set_imgs.reshape(len(test_set), time_bins, height, width,1)
 
     print("---------- Store data ----------")
 
-    with open('labels.pickle', 'wb') as f:
-        pickle.dump(labels, f, pickle.HIGHEST_PROTOCOL)
+    with open('test_data_nn.pickle', 'wb') as f:
+        pickle.dump(test_set_imgs, f, pickle.HIGHEST_PROTOCOL)
 
-    with open('flattened_matrices.pickle', 'wb') as f:
-        pickle.dump(flattened_matrices, f, pickle.HIGHEST_PROTOCOL)
-
-    return flattened_matrices, labels
+    return test_set_imgs
 
 
-def data_feed_rf():
+def test_data_feed_nn():
     """
-    This function loads the data we extracted with data_load_rf.
-    :return: flattened_matrices, labels
+    This function loads the test data we extracted with process_test_set.
+    :return: train_data, labels, label_dict
     """
     # Load data
-    with open('labels.pickle', 'rb') as f:
-        labels = pickle.load(f)
+    with open('test_data_nn.pickle', 'rb') as f:
+        test_data_nn = pickle.load(f)
 
-    with open('flattened_matrices.pickle', 'rb') as f:
-        flattened_matrices = pickle.load(f)
+    return test_data_nn
 
-    return flattened_matrices, labels
+
+def data_augmentation():
+    """
+
+    :return:
+    """
+    data_augmentation = Sequential([
+      layers.RandomFlip("horizontal_and_vertical"),
+      layers.RandomRotation(0.2),
+    ])
+    return data_augmentation
+
+
+
+
+

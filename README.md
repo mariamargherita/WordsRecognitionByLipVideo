@@ -6,8 +6,9 @@ This GitHub repository showcases an academic project that focuses on classifying
 
 [Event Camera]: https://en.wikipedia.org/wiki/Event_camera
 
-Please note that the dataset was leveraged for a [Kaggle](https://www.kaggle.com/competitions/smemi309-final-evaluation-challenge-2022/data) challenge but it is not available anymore due to ownership rights. However, please feel free to reach out in case you are interested in the dataset.
+Please note that the dataset was leveraged for a [Kaggle](https://www.kaggle.com/competitions/smemi309-final-evaluation-challenge-2022) challenge but it is not available anymore due to ownership rights. However, please feel free to reach out in case you are interested in the dataset.
 
+This project was carried out in PyCharm, thus it is optimized for it. However, this should not keep you from using your own preferred server.
 <br>
 
 ## Introduction
@@ -28,9 +29,78 @@ Event Data are DataFrames, with each row representing an event, sorted in ascend
 
 The primary goal of this project is to address the following problem:
 
-> **Problem**: Given 10 distinct classes, each with 32 examples, our goal is to construct a classifier that can accurately determine the class of a new, unseen example.
+> **Problem**: Our goal is to construct a classifier that can determine the class of a new, unseen example by enhancing classifiers available at the [Kaggle competition link](https://www.kaggle.com/competitions/smemi309-final-evaluation-challenge-2022).
 
-The main *metric* that will be used to assess the performance of the models is *accuracy*.\
-This problem is the central focus of our project and all subsequent work will be aimed at solving it.
+The main *metric* that will be used to assess the performance of the models is *accuracy*.
+<br>
+
+## Usage
+
+To use this project, follow these steps:
+
+1. **Clone the repository**: First, clone this repository to your local machine using
+
+    ```bash
+    git clone https://github.com/mariamargherita/WordsRecognitionByLipVideo.git
+    ```
+
+2. **Obtain the dataset**: To obtain the dataset please reach out. Unfortunately, the data are not publicly available due to ownership rights. \
+The train data will have the following structure:
+    ```bash
+    local_repo/
+    ├──── train10/
+    │       ├── train10/
+    │             ├── Addition/
+    │             ├── Carnaval/
+    │             ├── Decider/
+    │             ├── Ecole/
+    │             ├── Fillette/
+    │             ├── Huitre/
+    │             ├── Joyeux/
+    │             ├── Musique/
+    │             ├── Pyjama/
+    │             └── Ruisseau/
+    ├──── .venv/
+    ├──── .gitignore
+    ├──── .LICENSE
+    ├──── ...
+    └──── *.ipynb
+
+    ```
+Every folder within `train10/train10/` holds 32 csv files, named from `0.csv` to `31.csv`. These files represent event data focused on the face of a speaker uttering a specific french word, which is also the name of the parent folder.
+
+3. **Install virtual environment**: This project requires a certain Conda environment. You can install it by typing the following in your terminal:
+
+    ```bash
+    # put here command to install yml conda environmnet
+    ```
+   
+You should now be able to run the Notebooks.
 
 <br>
+
+## Project Outline
+
+### Data Preprocessing
+
+The initial phase of the project involves preprocessing the raw event data. In the preprocessing phase, we first implement noise reduction methods to refine the event data. 
+> **Enhancements**: Could be PCA.
+
+### Model Selection and Training
+
+After preprocessing and exploring the data, the next step is model selection and training. We will be comparing the performance of a 
+Bagging Random Forest versus the one of a CNN-LSTM.
+
+> **Enhancements on CNN-LSTM**
+> - The model was trained with 90% of training set and 10% of validation data to increase training data and limit overfitting
+> - 
+
+> **Enhancements on Bagging Random Forest**: .
+
+<br>
+
+## Results
+
+
+## Contributions
+

@@ -45,3 +45,34 @@ def visualizeSample(sample, cmap ="binary"):
     plt.imshow(np.concatenate([l for l in sample], axis = 1), cmap = cmap)
     plt.savefig("plots/sample_visualization.png")
     plt.close()
+
+
+def plot_history(history):
+    """
+    This function plots metrics obtained from models.
+    Args:
+        history: history of trained model.
+
+    Returns: plots of training loss, validation loss, accuracy and validation accuracy.
+
+    """
+    train_loss = history['loss']
+    val_loss = history['val_loss']
+    train_acc = history['accuracy']
+    val_acc = history['val_accuracy']
+
+    # Loss
+    plt.figure()
+    plt.plot(train_loss, label='Training Loss')
+    plt.plot(val_loss, label='Validation Loss')
+    plt.title('Loss')
+    plt.legend()
+    plt.savefig(f"plots/loss_vs_valloss.png")
+
+    # Accuracy
+    plt.figure()
+    plt.plot(train_acc, label='Training Accuracy')
+    plt.plot(val_acc, label='Validation Accuracy')
+    plt.title('Accuracy')
+    plt.legend()
+    plt.savefig(f"plots/acc_vs_valacc.png")
