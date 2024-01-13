@@ -2,7 +2,7 @@
 
 <br>
 
-This GitHub repository showcases an academic project that focuses on classifying event data obtained from an event-based sensor - [Event Camera], also known as a neuromorphic sensor.
+This GitHub repository showcases a project that focuses on classifying event data obtained from an event-based sensor - [Event Camera], also known as a neuromorphic sensor.
 
 [Event Camera]: https://en.wikipedia.org/wiki/Event_camera
 
@@ -29,7 +29,7 @@ Event Data are DataFrames, with each row representing an event, sorted in ascend
 
 The primary goal of this project is to address the following problem:
 
-> **Problem**: Our goal is to construct a classifier that can determine the class of a new, unseen example by enhancing classifiers available at the [Kaggle competition link](https://www.kaggle.com/competitions/smemi309-final-evaluation-challenge-2022).
+> **Problem**: Our goal is to construct a classifier that can determine the class of a new, unseen example as accurately as possible. We will compare then its performance with the one of a CNN-LSTM.
 
 The main *metric* that will be used to assess the performance of the models is *accuracy*.
 <br>
@@ -83,9 +83,14 @@ You should now be able to run the Notebooks.
 
 ### Data Preprocessing
 
-The initial phase of the project involves preprocessing the raw event data. In the preprocessing phase, we first implement noise reduction methods to refine the event data. 
-> **Enhancements**
-> - Not yet started, will try noise reduction.
+The initial phase of the project involves preprocessing the raw event data. In the preprocessing steps we performed noise reduction which did not result in an improvement in the model performance.
+This is probably due to the fact that in our use case noise makes our model more general. For this reason, we decided not to reduce noise in our data.
+
+Please note that the code for noise reduction implementation was left in the repository
+for reference.
+
+Please also note that the preprocessing steps performed are different for the two models. This is due to the fact that some steps made in the preprocessing pipeline of the CNN-LSTM are valuable to improve its performance but are not needed 
+for improving other classification models' accuracy (i.e. mini-batches creation).
 
 ### Model Selection and Training
 
@@ -93,8 +98,9 @@ After preprocessing and exploring the data, the next step is model selection and
 Bagging Random Forest versus the one of a CNN-LSTM.
 
 > **Enhancements on CNN-LSTM**
-> - The model was trained with 90% of training set and 10% of validation data to increase training data and limit overfitting
-> - Lowering early stopping patience on validation loss from 10 to 5 to limit overfitting
+> - The model was trained with 90% of training set and 10% of validation data to increase training data and limit over-fitting
+> - Lowering early stopping patience on validation loss from 10 to 5 to limit over-fitting
+> - Reducing dropout from 0.5 to 0.3
 
 > **Enhancements on Bagging Random Forest**
 > - Not yet started

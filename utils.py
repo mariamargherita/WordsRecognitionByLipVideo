@@ -87,7 +87,7 @@ def accuracy_fn(boolean_result, y_pred):
     """
 
     correct = np.array(boolean_result).sum()
-    accuracy = round((correct / len(y_pred)), 4)
+    accuracy = correct / len(y_pred)
     return accuracy
 
 

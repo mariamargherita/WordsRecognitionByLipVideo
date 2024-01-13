@@ -26,7 +26,7 @@ class convLSTM():
                                                 mode='min',
                                                 restore_best_weights=True)
         checkpoint_callback = ModelCheckpoint(
-            filepath='checkpoints/cp-best-{timestamp}.model',
+            filepath=f'checkpoints/cp-best-{self.timestamp}.model',
             verbose=1,
             save_best_only=True)
 
@@ -52,6 +52,8 @@ class convLSTM():
         '''
 
         model = Sequential()
+
+        # Model
         first_filter_depth, second_filter_depth = self.conv_filter_depths[0], self.conv_filter_depths[1]
 
         model.add(
