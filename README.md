@@ -87,6 +87,7 @@ The initial phase of the project involves preprocessing the raw event data. In t
 This is probably due to the fact that in our use case noise makes our model more general. For this reason, we decided not to reduce noise in our data.
 
 > **Note**: The code for noise reduction implementation was left in the repository for reference.
+
 > **Note**: The preprocessing steps performed are different for the two models. This is due to the fact that some steps made in the preprocessing pipeline of the CNN-LSTM are valuable to improve its performance but are not needed for improving other classification models' accuracy (i.e. mini-batches creation).
 
 <br>
@@ -103,7 +104,7 @@ early stopping to limit over fitting.
 
 ## Results
 
-From the CNN-LSTM we get a $93% accuracy$ on the test set. To achieve this, we trained the model on 90% of training data and reserved a
+From the CNN-LSTM we get a *93% accuracy* on the test set. To achieve this, we trained the model on 90% of training data and reserved a
 10% for validation data. Once we found the model with the best performance on the validation data, we trained the best model on the full training data and
 predicted the test data labels, getting a test accuracy of 93%.
 
