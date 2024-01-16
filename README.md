@@ -86,29 +86,36 @@ You should now be able to run the Notebooks.
 The initial phase of the project involves preprocessing the raw event data. In the preprocessing steps we performed noise reduction which did not result in an improvement in the model performance.
 This is probably due to the fact that in our use case noise makes our model more general. For this reason, we decided not to reduce noise in our data.
 
-Please note that the code for noise reduction implementation was left in the repository
-for reference.
+> **Note**: The code for noise reduction implementation was left in the repository for reference.
+> **Note**: The preprocessing steps performed are different for the two models. This is due to the fact that some steps made in the preprocessing pipeline of the CNN-LSTM are valuable to improve its performance but are not needed for improving other classification models' accuracy (i.e. mini-batches creation).
 
-Please also note that the preprocessing steps performed are different for the two models. This is due to the fact that some steps made in the preprocessing pipeline of the CNN-LSTM are valuable to improve its performance but are not needed 
-for improving other classification models' accuracy (i.e. mini-batches creation).
+<br>
 
 ### Model Selection and Training
 
-After preprocessing and exploring the data, the next step is model selection and training. We will be comparing the performance of a 
-Bagging Random Forest versus the one of a CNN-LSTM.
+After preprocessing and exploring the data, the next step is model selection and training. We will be comparing the performance of a Random Forest versus the one of a CNN-LSTM.
 
-> **Enhancements on CNN-LSTM**
-> - The model was trained with 90% of training set and 10% of validation data to increase training data and limit over-fitting
-> - Lowering early stopping patience on validation loss from 10 to 5 to limit over-fitting
-> - Reducing dropout from 0.5 to 0.3
-
-> **Enhancements on Bagging Random Forest**
-> - Not yet started
+For the CNN-LSTM we tried different model complexities and tuned parameters and hyperparameters. We also tried different test sizes and batch sizes since
+we do not have much data so this could have a strong impact on how well the neural network learns to generalize. Finally, we made sure to add dropout and 
+early stopping to limit over fitting.
 
 <br>
 
 ## Results
 
+From the CNN-LSTM we get a $93% accuracy$ on the test set. To achieve this, we trained the model on 90% of training data and reserved a
+10% for validation data. Once we found the model with the best performance on the validation data, we trained the best model on the full training data and
+predicted the test data labels, getting a test accuracy of 93%.
+
+<br>
 
 ## Contributions
 
+Here are some of the steps that could still be taken in order to potentially improve the models:
+
+- CNN-LSTM:
+  - Add regularization to further limit over fitting
+  - Add attention layers in neural network composition
+  - Try to tune Adam optimizer's parameters (i.e. learning rate)
+- Random Forest:
+  - 

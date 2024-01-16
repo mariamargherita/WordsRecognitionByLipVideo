@@ -5,15 +5,11 @@ from utils import plot_sample_snapshot, visualizeSample, plot_history, predictio
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from cnn_model import convLSTM
+from cnn_model import convLSTM, full_convLSTM
 import random
 from datetime import datetime
 from tensorflow.keras.models import load_model
 
-
-# try to change dropout from 0.4 in 0.5 in time distributed layer
-# hyperparameters (change batch size, learning rate)
-# attention layer (probably to add after conv layers)
 
 print("------------- Load and preprocess data ----------------")
 
@@ -49,7 +45,7 @@ random.seed(123)
 timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 epochs = 50
 batch_size = 32
-dropout = 0.3 # 0.3 -> 0.8750 val acc but in model dropout 0.4;
+dropout = 0.3
 
 model = convLSTM(X_train, y_train, X_val, y_val, timestamp, dropout=dropout)
 train_history = model.train(epochs, batch_size)
@@ -69,12 +65,35 @@ test_set_imgs = test_data_feed_nn()
 
 print("------------- Make prediction on test set ----------------")
 
-best_model = load_model(filepath='checkpoints/cp-best-20240112114125.model') #0.87 on test
+best_model = load_model(filepath='checkpoints/cp-best-20240112114125.model')
 test_results = best_model.predict(test_set_imgs)
 
 model_test_accuracy = prediction(test_set, test_results, label_dict_nn)
 
 print(f"Model accuracy on test set: {model_test_accuracy}")
+
+
+print("Train model with best parameters on full training set")
+
+X_train, y_train = train_data_nn, labels_nn
+
+random.seed(1234)
+
+timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+epochs = 10
+batch_size = 32
+dropout = 0.3
+
+final_model = full_convLSTM(X_train, y_train, timestamp, dropout=dropout)
+train_history = final_model.train(epochs, batch_size)
+
+print("------------- Make prediction on test set ----------------")
+
+test_results_full = train_history.model.predict(test_set_imgs)
+
+model_test_accuracy_full = prediction(test_set, test_results_full, label_dict_nn)
+
+print(f"Model accuracy on test set (model trained on full train set): {model_test_accuracy_full}")
 
 
 print("------------- End of pipeline ----------------")
