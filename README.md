@@ -104,7 +104,9 @@ early stopping to limit over fitting.
 
 ## Results
 
-From the CNN-LSTM we get a *93% accuracy* on the test set. To achieve this, we trained the model on 90% of training data and reserved a
+From the CNN-LSTM we get a *93% accuracy* on the test set. 
+
+> To achieve this, we trained the model on 90% of training data and reserved a
 10% for validation data. Once we found the model with the best performance on the validation data, we trained the best model on the full training data and
 predicted the test data labels, getting a test accuracy of 93%.
 
