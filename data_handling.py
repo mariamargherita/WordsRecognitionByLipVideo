@@ -7,7 +7,7 @@ import pickle
 from tensorflow.keras import Sequential, layers
 
 
-def data_load_nn(path_dir):
+def data_load(path_dir):
     """
 
     :return:
@@ -121,7 +121,7 @@ def process_training_set(train_set, time_bins=10, resize=0.5):
     return train_data, np.array(labels), label_dict
 
 
-def data_feed_nn():
+def data_feed():
     """
     This function loads the data we extracted with process_training_set.
     :return: train_data, labels, label_dict
@@ -216,7 +216,7 @@ def process_training_set_denoised(train_set, time_bins=10, resize=0.5):
     return train_data, np.array(labels), label_dict
 
 
-def denoised_data_feed_nn():
+def denoised_data_feed():
     """
     This function loads the data we extracted with process_training_set_denoised.
     :return: train_data, labels, label_dict
@@ -308,7 +308,7 @@ def process_test_set_denoised(test_set, time_bins, resize):
     return test_set_imgs
 
 
-def test_data_feed_nn():
+def test_data_feed():
     """
     This function loads the test data we extracted with process_test_set.
     :return: test_data

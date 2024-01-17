@@ -81,9 +81,18 @@ You should now be able to run the Notebooks.
 
 ## Project Outline
 
+   ```
+    ├──── checkpoints folder: contains the checkpoint of best model with respect to validation accuracy performance
+    ├──── plots foder: contains some samples visualizations. If code is run, also accuracy vs. validation accuracy and loss vs. validation loss will be stored here.
+    ├──── data_handling.py: Python file containing the data load and preprocessing steps
+    ├──── pipeline.py: Python file containing the project pipeline
+    ├──── model.py: Python file containing the CNN-LSTM model
+    └──── utils.py: Python file containing useful functions to run code
+   ```
+
 ### Data Preprocessing
 
-The initial phase of the project involves preprocessing the raw event data. $
+The initial phase of the project involves preprocessing the raw event data.
 
 In the preprocessing steps we performed noise reduction which did not result in an improvement in the model performance.
 This is probably due to the fact that in our use case noise makes our model more general. For this reason, we decided not to reduce noise in our data. We also created mini-batches since it is a preprocessing
