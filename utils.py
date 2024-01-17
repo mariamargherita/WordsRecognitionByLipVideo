@@ -116,3 +116,4 @@ def prediction(test_set, test_results, label_dict):
     test_accuracy = accuracy_fn(boolean_result, y_pred)
 
     return test_accuracy
+

@@ -29,7 +29,7 @@ Event Data are DataFrames, with each row representing an event, sorted in ascend
 
 The primary goal of this project is to address the following problem:
 
-> **Problem**: Our goal is to construct a classifier that can determine the class of a new, unseen example as accurately as possible. We will compare then its performance with the one of a CNN-LSTM.
+> **Problem**: Our goal is to construct a classifier that can determine the class of a new, unseen example as accurately as possible.
 
 The main *metric* that will be used to assess the performance of the models is *accuracy*.
 <br>
@@ -83,20 +83,21 @@ You should now be able to run the Notebooks.
 
 ### Data Preprocessing
 
-The initial phase of the project involves preprocessing the raw event data. In the preprocessing steps we performed noise reduction which did not result in an improvement in the model performance.
-This is probably due to the fact that in our use case noise makes our model more general. For this reason, we decided not to reduce noise in our data.
+The initial phase of the project involves preprocessing the raw event data. $
+
+In the preprocessing steps we performed noise reduction which did not result in an improvement in the model performance.
+This is probably due to the fact that in our use case noise makes our model more general. For this reason, we decided not to reduce noise in our data. We also created mini-batches since it is a preprocessing
+step which helps CNN-LSTM model performance.
 
 > **Note**: The code for noise reduction implementation was left in the repository for reference.
-
-> **Note**: The preprocessing steps performed are different for the two models. This is due to the fact that some steps made in the preprocessing pipeline of the CNN-LSTM are valuable to improve its performance but are not needed for improving other classification models' accuracy (i.e. mini-batches creation).
 
 <br>
 
 ### Model Selection and Training
 
-After preprocessing and exploring the data, the next step is model selection and training. We will be comparing the performance of a Random Forest versus the one of a CNN-LSTM.
+After preprocessing and exploring the data, the next step is model selection and training.
 
-For the CNN-LSTM we tried different model complexities and tuned parameters and hyperparameters. We also tried different test sizes and batch sizes since
+We tried different model complexities and tuned parameters and hyperparameters. We also tried different test sizes and batch sizes since
 we do not have much data so this could have a strong impact on how well the neural network learns to generalize. Finally, we made sure to add dropout and 
 early stopping to limit over fitting.
 
@@ -104,7 +105,7 @@ early stopping to limit over fitting.
 
 ## Results
 
-From the CNN-LSTM we get a *93% accuracy* on the test set. 
+We get a *93% accuracy* on the test set. 
 
 > To achieve this, we trained the model on 90% of training data and reserved a
 10% for validation data. Once we found the model with the best performance on the validation data, we trained the best model on the full training data and
@@ -116,9 +117,8 @@ predicted the test data labels, getting a test accuracy of 93%.
 
 Here are some of the steps that could still be taken in order to potentially improve the models:
 
-- CNN-LSTM:
-  - Add regularization to further limit over fitting
-  - Add attention layers in neural network composition
-  - Try to tune Adam optimizer's parameters (i.e. learning rate)
-- Random Forest:
-  - 
+- Add regularization to further limit over fitting
+- Add attention layers in neural network composition
+- Try to tune Adam optimizer's parameters (i.e. learning rate)
+
+

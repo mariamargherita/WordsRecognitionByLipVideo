@@ -1,11 +1,11 @@
 
-from data_handling_nn import (data_load_nn, data_feed_nn, binSample, process_training_set, process_test_set,
-                              test_data_feed_nn)
+from data_handling import (data_load_nn, data_feed_nn, binSample, process_training_set, process_test_set,
+                           test_data_feed_nn)
 from utils import plot_sample_snapshot, visualizeSample, plot_history, prediction
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from cnn_model import convLSTM, full_convLSTM
+from model import convLSTM, full_convLSTM
 import random
 from datetime import datetime
 from tensorflow.keras.models import load_model
