@@ -81,12 +81,15 @@ You should now be able to run the Notebooks.
 
 ## Project Outline
 
+This repository contains the following files:
+
    ```
     ├──── checkpoints folder: contains the checkpoint of best model with respect to validation accuracy performance
     ├──── plots foder: contains some samples visualizations. If code is run, also accuracy vs. validation accuracy and loss vs. validation loss will be stored here.
     ├──── data_handling.py: Python file containing the data load and preprocessing steps
-    ├──── pipeline.py: Python file containing the project pipeline
+    ├──── lip_video_env.yml: .yml file containing the Conda environment needed to run the code (see Usage section above)
     ├──── model.py: Python file containing the CNN-LSTM model
+    ├──── pipeline.py: Python file containing the project pipeline
     └──── utils.py: Python file containing useful functions to run code
    ```
 
